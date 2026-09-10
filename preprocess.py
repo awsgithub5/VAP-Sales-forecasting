@@ -1,9 +1,6 @@
 """
 preprocess.py -- SageMaker Pipeline preprocessing step for the VAP forecasting pipeline.
 
-Replaces the manual step of running Feature_Engineering_Pipeline.ipynb by hand and
-uploading its output -- this script does the SAME tested feature engineering, as a real
-pipeline step that runs automatically from raw inputs.
 
 WHAT THIS SCRIPT DOES (identical logic to the notebook, just restructured as a script):
   1. Loads the raw sales Excel, builds leakage-safe internal features (calendar, county
