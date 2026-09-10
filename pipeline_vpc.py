@@ -393,13 +393,7 @@ def build_evaluation_step(repack_steps):
 
         ))
 
-    # BUG FIX: this previously had "code=SOURCE_DIR" passed directly to ProcessingStep
-    # -- SOURCE_DIR is a directory path, not a script filename, and ProcessingStep does
-    # not accept source_dir directly at all (only through processor.run() as
-    # step_args, same fix applied elsewhere in this file). This would have failed at
-    # actual runtime. evaluate.py no longer imports inference.py or calls
-    # dashboard_merge.py, so it doesn't need source_dir bundling at all anymore --
-    # a plain code= is correct and sufficient here now.
+  
     step_args = processor.run(
 
         code="evaluate.py",
