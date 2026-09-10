@@ -73,16 +73,7 @@ PIPELINE_NETWORK_CONFIG = NetworkConfig(
 
 )
 
-# BUG FIX: env-var-izing BUCKET/REGION/etc. inside the individual step scripts
-# (train_with_holdout.py, merge_and_generate_dashboard.py, etc.) has NO EFFECT
-# on its own -- those scripts run inside SEPARATE SageMaker containers, in a
-# different process, at a different time, than this pipeline-definition
-# script. Unless the env vars actually set HERE (when this file runs) are
-# explicitly passed INTO each container, every step silently falls back to
-# its hardcoded default regardless of what's set in this shell. Confirmed
-# directly: SKLearnProcessor takes this as env=, SKLearn (the training
-# estimator) takes it as environment= -- different parameter names for the
-# two classes, verified against the SageMaker SDK docs directly, not assumed.
+
 PIPELINE_ENV = {
     "VAP_S3_BUCKET": BUCKET,
     "VAP_REGION": REGION,
