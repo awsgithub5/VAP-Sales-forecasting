@@ -64,10 +64,7 @@ def compute_demand_spikes(forecast_df):
     combined into one number, same as everywhere else in this pipeline."""
     results = []
     forecast_df = forecast_df.copy()
-    # BUG FIX: forecast_df's "date" arrives as a plain string (pd.read_csv does not
-    # auto-parse dates), but spike_row["date"].strftime() below requires a real
-    # datetime -- confirmed directly this would crash with
-    # "'str' object has no attribute 'strftime'" otherwise.
+   
     forecast_df["date"] = pd.to_datetime(forecast_df["date"])
     forecast_df = forecast_df.sort_values(["FIPS", "Family", "ModelRole", "date"])
     for (fips, family, role), group in forecast_df.groupby(["FIPS", "Family", "ModelRole"]):
