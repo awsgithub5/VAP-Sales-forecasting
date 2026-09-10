@@ -53,9 +53,7 @@ print(f"Converted fiscal dates. Sample: {sales_hist[['Year', 'Month', 'date']].h
 
 # Prepare historical sales for fact table
 sales_hist['DataType'] = 'Historical'
-# BUG FIX: was reading "Net Sales QTY" -- the wrong column. Only "Sales QTY" should
-# ever be shown or used anywhere on this dashboard, per direct instruction earlier --
-# "Net Sales QTY" and "Returns/Credits QTY" must never appear.
+
 if 'Sales QTY' not in sales_hist.columns:
     raise KeyError(
         f"'Sales QTY' column not found in raw sales file -- available columns: "
