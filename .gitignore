@@ -1,0 +1,40 @@
+# Environment variables
+.env
+.env.local
+config.json
+
+# AWS credentials
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints
+*.ipynb
+
+# Model artifacts
+*.tar.gz
+*.pkl
+*.ubj
+*.txt
+model_artifacts/
+
+# Cache
+.cache/
+.local/
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log

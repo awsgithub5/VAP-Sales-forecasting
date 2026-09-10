@@ -39,18 +39,16 @@ from sagemaker.workflow.model_step import ModelStep
 from sagemaker.inputs import TrainingInput
 
 from sagemaker.model import Model
- 
-# Configuration
-# Every value below reads from an env var (Terraform/shell-settable) with the
-# current, working value as fallback default -- so a staging/prod run, a
-# different AWS account, or a VPC change never requires a code edit, only a
-# deploy-time variable. Matches the exact same pattern already applied to the
-# agentic platform.
-REGION = os.environ.get("VAP_REGION", "us-east-1")
 
-BUCKET = os.environ.get("VAP_S3_BUCKET", "vap-sales-forecasting")
+from config import get_config
 
-ROLE_ARN = os.environ.get("VAP_PIPELINE_ROLE_ARN") or sagemaker.get_execution_role()
+# Load configuration
+config = get_config()
+REGION = config['region']
+
+BUCKET = config['s3_bucket']
+
+ROLE_ARN = config['role_arn']
 
 RAW_DATA_S3_URI = f"s3://{BUCKET}/raw-data/"
 
@@ -60,16 +58,10 @@ TRAINING_OUTPUT_S3_PREFIX = f"s3://{BUCKET}/pipeline-output/train"
 
 MIN_R2_THRESHOLD = float(os.environ.get("VAP_MIN_R2_THRESHOLD", "0.7"))
  
-# VPC Configuration -- these are environment-specific by nature (a
-# staging/prod VPC will genuinely have different subnet/SG IDs), so these
-# are the variables most likely to actually need overriding at deploy time.
-VPC_SUBNETS = os.environ.get(
-    "VAP_VPC_SUBNETS", "subnet-017ecff11e9506eca,subnet-08cbc0894ea637fa0"
-).split(",")
+# VPC Configuration
+VPC_SUBNETS = config['vpc_subnets']
 
-VPC_SECURITY_GROUP_IDS = os.environ.get(
-    "VAP_VPC_SECURITY_GROUP_IDS", "sg-0e27256da0833a825"
-).split(",")
+VPC_SECURITY_GROUP_IDS = config['vpc_security_groups']
 
 PIPELINE_NETWORK_CONFIG = NetworkConfig(
 

@@ -9,20 +9,20 @@ import os
 import tarfile
 import tempfile
 import shutil
+from config import get_config
 
-REGION = os.environ.get("VAP_REGION", "us-east-1")
-BUCKET = os.environ.get("VAP_S3_BUCKET", "vap-sales-forecasting")
-ENDPOINT_NAME = os.environ.get("VAP_ENDPOINT_NAME", "VAPSales-endpoint")
-ROLE_ARN = os.environ.get(
-    "VAP_PIPELINE_ROLE_ARN",
-    "arn:aws:iam::933500793219:role/service-role/AmazonSageMaker-ExecutionRole-20260817T153685",
-)
+# Load configuration from Secrets Manager
+config = get_config()
+REGION = config['region']
+BUCKET = config['s3_bucket']
+ENDPOINT_NAME = config['endpoint_name']
+ROLE_ARN = config['role_arn']
 
 ALL_GROUPS = ['vap-barrage-champion', 'vap-barrage-challenger', 'vap-grounded-champion', 'vap-grounded-challenger']
 
 VPC_CONFIG = {
-    "Subnets": ["subnet-017ecff11e9506eca", "subnet-08cbc0894ea637fa0"],
-    "SecurityGroupIds": ["sg-0e27256da0833a825"],
+    "Subnets": config['vpc_subnets'],
+    "SecurityGroupIds": config['vpc_security_groups'],
 }
 
 sm = boto3.client('sagemaker', region_name=REGION)

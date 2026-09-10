@@ -1,0 +1,8 @@
+{
+  "region": "us-east-1",
+  "s3_bucket": "YOUR_BUCKET_NAME",
+  "endpoint_name": "YOUR_ENDPOINT_NAME",
+  "role_arn": "arn:aws:iam::YOUR_ACCOUNT_ID:role/YOUR_ROLE_NAME",
+  "vpc_subnets": ["subnet-xxxxx", "subnet-yyyyy"],
+  "vpc_security_groups": ["sg-xxxxx"]
+}
